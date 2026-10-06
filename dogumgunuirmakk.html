@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Doğum günün kutlu olsun</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f5efe6;
+    color: #2c2c2c;
+    line-height: 1.8;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mektup {
+    max-width: 600px;
+    width: 100%;
+    background: #fffdf7;
+    padding: 55px 50px;
+
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.07);
+
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .mektup::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: 40px;
+    bottom: 0;
+
+    width: 1px;
+    background: #f0e4d0;
+
+    pointer-events: none;
+  }
+
+  /* FOTOĞRAF */
+
+  .foto-alan {
+    float: right;
+
+    margin: 0 0 20px 25px;
+
+    background: #fff;
+
+    padding: 10px 10px 35px 10px;
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+
+    transform: rotate(3deg);
+
+    transition: transform 0.4s ease;
+
+    width: 180px;
+
+    position: relative;
+    z-index: 2;
+  }
+
+  .foto-alan:hover {
+    transform: rotate(0deg) scale(1.05);
+  }
+
+  .foto-alan img {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    filter: saturate(0.9) contrast(1.05);
+  }
+
+  .foto-alan .not {
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+    color: #888;
+
+    text-align: center;
+
+    margin-top: 8px;
+
+    letter-spacing: 0.5px;
+  }
+
+  /* TARİH */
+
+  .tarih {
+    font-size: 13px;
+
+    color: #a89880;
+
+    font-family: "Courier New", monospace;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 35px;
+  }
+
+  /* BAŞLIK */
+
+  h1 {
+    font-size: 26px;
+
+    font-weight: normal;
+
+    color: #8b5e3c;
+
+    margin: 0 0 30px 0;
+
+    line-height: 1.4;
+  }
+
+  /* PARAGRAFLAR */
+
+  p {
+    font-size: 16px;
+
+    margin: 0 0 20px 0;
+
+    color: #383838;
+  }
+
+  .vurgu {
+    color: #8b5e3c;
+
+    font-style: italic;
+
+    font-weight: bold;
+  }
+
+  /* ÖZEL YAZI */
+
+  .ozel {
+    margin: 35px 0;
+
+    padding: 22px 0 22px 25px;
+
+    border-left: 3px solid #c9a87c;
+
+    font-size: 17.5px;
+
+    font-style: italic;
+
+    color: #5a4632;
+
+    line-height: 1.7;
+
+    clear: both;
+  }
+
+  /* ŞARKI BÖLÜMÜ */
+
+  .sarki-sozu {
+    margin: 30px 0;
+
+    padding: 20px 25px;
+
+    background: #faf6ef;
+
+    border-radius: 4px;
+
+    font-style: italic;
+
+    color: #6b5a48;
+
+    font-size: 15.5px;
+
+    line-height: 1.9;
+
+    position: relative;
+  }
+
+  .sarki-sozu::before {
+    content: "♪";
+
+    position: absolute;
+
+    top: 8px;
+    left: 10px;
+
+    color: #c9a87c;
+
+    font-size: 14px;
+  }
+
+  .sarki-adi {
+    display: block;
+
+    margin-top: 12px;
+
+    font-size: 12px;
+
+    color: #a89880;
+
+    font-style: normal;
+
+    font-family: "Courier New", monospace;
+
+    letter-spacing: 0.5px;
+
+    text-align: right;
+  }
+
+  /* LİSTE */
+
+  .liste {
+    margin: 30px 0;
+
+    font-size: 15px;
+
+    color: #5a5a5a;
+
+    line-height: 2.1;
+
+    font-family: "Courier New", monospace;
+  }
+
+  .liste span {
+    color: #8b5e3c;
+
+    font-weight: bold;
+  }
+
+  /* İMZA */
+
+  .imza {
+    margin-top: 45px;
+
+    text-align: right;
+
+    font-style: italic;
+
+    color: #6b6b6b;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+  }
+
+  .imza small {
+    display: block;
+
+    font-size: 13px;
+
+    color: #a89880;
+
+    margin-top: 6px;
+
+    font-style: normal;
+  }
+
+  /* MÜZİK BUTONU */
+
+  .muzik-btn {
+    position: fixed;
+
+    bottom: 25px;
+    right: 25px;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+
+    background: #8b5e3c;
+
+    border: none;
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 15px rgba(139, 94, 60, 0.4);
+
+    transition: all 0.3s ease;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 100;
+  }
+
+  .muzik-btn:hover {
+    transform: scale(1.1);
+
+    background: #a06e48;
+  }
+
+  .muzik-btn.caliyor {
+    animation: don 3s linear infinite;
+  }
+
+  @keyframes don {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* TELEFON */
+
+  @media (max-width: 520px) {
+
+    body {
+      padding: 20px 12px;
+    }
+
+    .mektup {
+      padding: 45px 30px;
+    }
+
+    .mektup::before {
+      left: 18px;
+    }
+
+    .foto-alan {
+      float: none;
+
+      margin: 0 auto 25px auto;
+
+      transform: rotate(-2deg);
+
+      width: 200px;
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 15.5px;
+    }
+
+    .ozel {
+      font-size: 16px;
+
+      padding-left: 18px;
+    }
+
+    .sarki-sozu {
+      font-size: 14.5px;
+
+      padding: 18px 20px;
+    }
+
+    .muzik-btn {
+      width: 48px;
+      height: 48px;
+
+      bottom: 18px;
+      right: 18px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="mektup">
+
+  <!-- FOTOĞRAF -->
+  <!-- foto.jpg dosyasını HTML ile aynı klasöre koy -->
+  <div class="foto-alan">
+
+    <img
+      src="FOTOGRAF.jpeg"
+      alt="12 yıllık dostluk"
+    >
+
+    <div class="not">
+      30.12.2008'den beri
+    </div>
+
+  </div>
+
+
+  <!-- TARİH -->
+
+  <div class="tarih">
+    — 30.12.2008'den bugüne —
+  </div>
+
+
+  <!-- BAŞLIK -->
+
+  <h1>
+    Doğum günün kutlu olsun.
+  </h1>
+
+
+  <!-- YAZI -->
+
+  <p>
+    Bugün senin günün. Ama bunu yazarken fark ettim ki,
+    aslında benim de günüm. Çünkü 30 Aralık 2008'de başladı
+    bu hikâye. O günden beri aynı film, aynı sahneler,
+    aynı kahkahalar.
+  </p>
+
+
+  <div class="ozel">
+
+    Her anımda yanımdaydın.<br>
+
+    İyi günümde de, kötü günümde de.<br>
+
+    Söylemesem de biliyordun,
+    anlatmasam da anlıyordun.
+
+  </div>
+
+
+  <p>
+    Kaç kere gece yarısı mesaj attım, cevap verdin.
+    Kaç kere dert yandım, dinledin.
+    Kaç kere saçmaladım, güldün ama yanımda kaldın.
+    <span class="vurgu">Hiç gitmedin.</span>
+  </p>
+
+
+  <p>
+    Bak şu fotoğrafa. Mezuniyet günümüz.
+    Elimizde çiçekler, yüzümüzde gülüşler.
+    O gün de yanımdaydın, bugün de yanımdasın.
+    Değişen tek şey takvim.
+  </p>
+
+
+  <!-- ŞARKI BÖLÜMÜ -->
+
+  <div class="sarki-sozu">
+
+    Bazı şarkılar vardır,
+    insanın aklına tek bir kişiyi getirir.
+    Bu da onlardan biri.
+
+    <span class="sarki-adi">
+      — ATE, "Diğer Yarım" (Hamam Sessions)
+    </span>
+
+  </div>
+
+
+  <p>
+    Bu şarkıyı her duyduğumda sen geliyorsun aklıma.
+    "Diğer yarım" diyor ya...
+    İşte öyle. Yıllardır birbirimizin diğer yarısıyız.
+
+    Aynı şehirde olmasak da,
+    aynı gün içinde konuşmasak da,
+    bir şey olunca ilk sen geliyorsun aklıma.
+  </p>
+
+
+  <!-- TARİH / DOSTLUK BİLGİSİ -->
+
+  <div class="liste">
+
+    30.12.2008 &nbsp;→&nbsp; bugün<br>
+
+    <span>18</span> yıl &nbsp;·&nbsp;
+    <span>216</span> ay &nbsp;·&nbsp;
+    birlikte geçen sayısız an<br>
+
+    her anımda &nbsp;·&nbsp;
+    <span>yanımda</span>
+
+  </div>
+
+
+  <p>
+    Bugün senin doğum günün.
+    Ben sana bir hediye vermek istemiyorum aslında.
+    Çünkü zaten bana verdiğin şeyin karşılığı yok.
+    Sadece şunu bilmeni istiyorum:
+  </p>
+
+
+  <p>
+    Ben de senin her anında yanındayım.
+    Bundan sonra da olacağım.
+    <span class="vurgu">Söz.</span>
+  </p>
+
+
+  <p>
+    İyi ki doğdun.
+    İyi ki varsın.
+    İyi ki 30 Aralık 2008'de,
+    o gün, o an, o yerde karşılaşmışız.
+  </p>
+
+
+  <!-- İMZA -->
+
+  <div class="imza">
+
+    — 12 yıllık dostun
+
+    <small>
+      her anında yanında olan
+    </small>
+
+  </div>
+
+</div>
+
+
+<!-- MÜZİK BUTONU -->
+
+<button
+  class="muzik-btn"
+  id="muzikBtn"
+  type="button"
+  onclick="muzikToggle()"
+  aria-label="Müziği aç veya kapat"
+>
+  ♪
+</button>
+
+
+<!-- MÜZİK -->
+
+<audio id="muzik" loop>
+
+  <source
+    src="Ate-Diger-Yarim-69.mp3"
+    type="audio/mpeg"
+  >
+
+</audio>
+
+
+<script>
+
+  const muzik = document.getElementById("muzik");
+  const btn = document.getElementById("muzikBtn");
+
+  let caliyor = false;
+
+
+  function muzikToggle() {
+
+    if (caliyor) {
+
+      muzik.pause();
+
+      btn.classList.remove("caliyor");
+
+      btn.textContent = "♪";
+
+      caliyor = false;
+
+      return;
+    }
+
+
+    muzik.volume = 0.3;
+
+
+    muzik.play()
+
+      .then(function () {
+
+        btn.classList.add("caliyor");
+
+        btn.textContent = "❚❚";
+
+        caliyor = true;
+
+      })
+
+      .catch(function (hata) {
+
+        alert(
+          "Şarkı çalmadı!\n\n" +
+          "Dosya adını ve konumunu kontrol et.\n\n" +
+          "Aranan dosya:\n" +
+          "Ate-Diger-Yarim-69.mp3"
+        );
+
+        console.error("Müzik hatası:", hata);
+
+      });
+
+  }
+
+</script>
+
+</body>
+</html>
